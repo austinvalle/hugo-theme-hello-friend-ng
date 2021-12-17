@@ -4,24 +4,6 @@
   justify-content: center;
   position: relative;
   padding: 20px;
-  // Default
-  background: $light-background-header;
-
-  @media (prefers-color-scheme: dark) {
-    background: $dark-background-header;
-  }
-
-  @media (prefers-color-scheme: light) {
-    background: $light-background-header;
-  }
-
-  [data-theme=dark] & {
-    background: $dark-background-header;
-  }
-
-  [data-theme=light] & {
-    background: $light-background-header;
-  }
 
   &__right {
     display: flex;

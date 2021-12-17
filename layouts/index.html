@@ -1,23 +1,36 @@
 {{ define "body" }}
-    <body class="{{ if .Site.Params.backgroundImage }} background-image" style="background-image: url('{{ .Site.Params.backgroundImage }}');" {{ else }}"{{ end }}>
+
+<body class="{{ if .Site.Params.backgroundImage }} background-image"
+	  style="background-image: url('{{ .Site.Params.backgroundImage }}');"
+	  {{
+	  else
+	  }}"{{
+	  end
+	  }}>
+	<canvas id="grav-well"></canvas>
+</body>
 {{ end }}
 
 {{ define "main" }}
-    <main aria-role="main">
-        <div>
-            {{ if .Site.Params.Portrait.Path }}
-               <img src="{{ .Site.Params.Portrait.Path }}" class="circle" alt="{{ .Site.Params.Portrait.Alt }}" style="max-width:{{ .Site.Params.Portrait.MaxWidth }}" />
-            {{ end }}
+<main aria-role="main">
+	<div>
+		{{ if .Site.Params.Portrait.Path }}
+		<img src="{{ .Site.Params.Portrait.Path }}"
+			 class="circle"
+			 alt="{{ .Site.Params.Portrait.Alt }}"
+			 style="max-width:{{ .Site.Params.Portrait.MaxWidth }}" />
+		{{ end }}
 
-            <h1>{{ .Site.Title }}</h1>
+		<h1>{{ .Site.Title }}</h1>
+		{{- with .Site.Params.homeSubtitle }}
+		<p>{{.}}</p>
+		{{- end }}
 
-            {{ partial "subtitle.html" . }}
-
-            {{- with .Site.Params.social }}
-                <div>
-                    {{ partial "social-icons.html" . }}
-                </div>
-            {{- end }}
-        </div>
-    </main>
+		{{- with .Site.Params.social }}
+		<div>
+			{{ partial "social-icons.html" . }}
+		</div>
+		{{- end }}
+	</div>
+</main>
 {{ end }}
