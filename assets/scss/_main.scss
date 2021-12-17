@@ -341,6 +341,7 @@ ol ol {
   align-items: center;
   justify-content: center;
   margin: 0;
+  padding: 0 5px 0 5px;
 
   @media #{$media-size-phone} {
     margin-top: 0;

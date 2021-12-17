@@ -1,7 +1,11 @@
 function gravWell() {
 	// Constants
-	var NUM_LINES = window.innerWidth > 800 ? 250 : 100;
-	var RAIN_LENGTH = 200;
+	var MOBILE_NUM_LINES = 100;
+	var FULL_NUM_LINES = 400;
+	var NUM_LINES = window.innerWidth > 800 ? FULL_NUM_LINES : MOBILE_NUM_LINES;
+
+	var RAIN_LENGTH_MAX = 200;
+	var RAIN_LENGTH_MIN = 20;
 
 	// Global vars
 	var _animationFrame;
@@ -16,7 +20,8 @@ function gravWell() {
 			rainLines.push({
 				xPos: Math.random() * _canvas.width,
 				yPos: Math.random() * _canvas.height,
-				speed: Math.random() * 2 + 1
+				speed: Math.random() * 2 + 1,
+				length: Math.random() * (RAIN_LENGTH_MAX - RAIN_LENGTH_MIN) + RAIN_LENGTH_MIN
 			});
 		}
 
@@ -25,7 +30,7 @@ function gravWell() {
 
 	// Renders a rain line at it's current defined position
 	function renderRainLine(line) {
-		var lineGradient = _context.createLinearGradient(line.xPos, line.yPos, line.xPos, line.yPos + RAIN_LENGTH);
+		var lineGradient = _context.createLinearGradient(line.xPos, line.yPos, line.xPos, line.yPos + line.length);
 		var alpha = 1 - (_canvas.height - line.yPos) / _canvas.height * 0.8;
 		lineGradient.addColorStop(0, "hsla(315,84%,44%," + alpha + ")");
 		lineGradient.addColorStop(1, "hsla(315, 84%, 44%, 0)");
@@ -33,7 +38,7 @@ function gravWell() {
 		_context.strokeStyle = lineGradient;
 		_context.beginPath();
 		_context.moveTo(line.xPos, line.yPos);
-		_context.lineTo(line.xPos, line.yPos + RAIN_LENGTH);
+		_context.lineTo(line.xPos, line.yPos + line.length);
 		_context.stroke();
 	}
 
@@ -41,7 +46,7 @@ function gravWell() {
 	function updateRainLine(line) {
 		line.yPos -= line.speed;
 		// Reset position to bottom of canvas after the rain has left the screen
-		if (line.yPos < -RAIN_LENGTH) {
+		if (line.yPos < -line.length) {
 			line.yPos = _canvas.height;
 		}
 	}
